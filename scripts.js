@@ -33,6 +33,7 @@ app.get("/images", (req, res) => {
 app.get("/images/:imageName", (req, res) => {
   fs.emptyDir("downloads");
   const file = req.params.imageName;
+  const downloadPath = `downloads/${file}`;
   const getObjectParams = {
     Bucket: bucketName,
     Key: file,
@@ -40,9 +41,9 @@ app.get("/images/:imageName", (req, res) => {
   s3Client
     .send(new GetObjectCommand(getObjectParams))
     .then((getObjectResponse) => {
-      getObjectResponse.Body.pipe(fs.createWriteStream(`downloads/${file}`));
+      getObjectResponse.Body.pipe(fs.createWriteStream(downloadPath));
     });
-  res.send(`${file} downloaded`);
+  res.sendFile(__dirname + "/" + downloadPath);
 });
 
 app.post("/images", (req, res) => {
