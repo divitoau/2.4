@@ -43,7 +43,9 @@ app.get("/images/:imageName", (req, res) => {
     .then((getObjectResponse) => {
       getObjectResponse.Body.pipe(fs.createWriteStream(downloadPath));
     });
-  res.sendFile(__dirname + "/" + downloadPath);
+  setTimeout(() => {
+    res.sendFile(__dirname + "/" + downloadPath);
+  }, 1000);
 });
 
 app.post("/images", (req, res) => {
