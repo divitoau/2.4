@@ -11,12 +11,10 @@ const app = express();
 
 app.use(fileUpload());
 
-const bucketName = "my-cool-local-bucket";
+const bucketName = "cool-sdk-assignment-bucket";
 
 const s3Client = new S3Client({
-  region: "us-east-1",
-  endpoint: "http://localhost:4566",
-  forcePathStyle: true,
+  region: "us-east-2",
 });
 
 app.get("/images", (req, res) => {
